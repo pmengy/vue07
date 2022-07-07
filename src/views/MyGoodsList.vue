@@ -13,6 +13,26 @@
         <td>{{ scope.row.goods_name }}</td>
         <td>{{ scope.row.goods_price }}</td>
         <td>
+          <input
+            v-model="scope.row.inputValue"
+            class="tag-input form-control"
+            style="width: 100px"
+            type="text"
+            @blur="scope.row.inputVisible = false"
+            @keyup.enter="enter(scope.row)"
+            @keyup.esc="scope.row.inputValue = ''"
+            v-if="scope.row.inputVisible"
+            v-focus
+          />
+          <button
+            v-else
+            style="display: block"
+            class="btn btn-primary btn-sm add-tag"
+            @click="scope.row.inputVisible = true"
+          >
+            +Tag
+          </button>
+
           <span
             v-for="(str, index) in scope.row.tags"
             :key="index"
@@ -51,6 +71,14 @@ export default {
     del(id) {
       const index = this.list.findIndex((ele) => ele.id === id);
       this.list.splice(index, 1);
+    },
+    enter(val) {
+      if (val.inputValue.trim().length === 0) {
+        return alert('Please enter a tag');
+      }
+      val.tags.push(val.inputValue);
+      val.inputValue = '';
+      val.inputVisible = false;
     },
   },
   components: {
