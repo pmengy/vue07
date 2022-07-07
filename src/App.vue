@@ -1,20 +1,17 @@
 <template>
   <div>
-    
+    <MyDir></MyDir>
   </div>
 </template>
 
 <script>
+import MyDir from './components/MyDirective.vue';
 export default {
   data() {
     return {};
   },
-  directives: {
-    focus: {
-      inserted(el) {
-        el.focus();
-      },
-    },
+  components: {
+    MyDir,
   },
 };
 </script>
